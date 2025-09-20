@@ -16,6 +16,10 @@ const useStyles = createUseStyles(
       flexDirection: 'column',
       cursor: 'pointer',
       boxShadow: '5px 5px 10px rgb(21, 156, 66)',
+      '&:hover': {
+        transform: 'translateY(-10px)',
+        transition: 'transform 0.3s ease-in-out',
+      },
     },
     image: {
       width: '100%',

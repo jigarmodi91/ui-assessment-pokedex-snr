@@ -5,7 +5,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import Grid from '@mui/material/Grid';
 
 export const PokemonDetails = () => {
   const classes = useStyles();
@@ -15,6 +14,21 @@ export const PokemonDetails = () => {
     name as string
   );
   const navigate = useNavigate();
+
+  const {
+    height,
+    weight,
+    classification,
+    resistant,
+    weaknesses,
+    maxCP,
+    maxHP,
+    fleeRate,
+  } = pokemonDetail;
+  const heightValue =
+    (parseFloat(height?.maximum) + parseFloat(height?.minimum)) / 2;
+  const weightValue =
+    (parseFloat(weight?.maximum) + parseFloat(weight?.minimum)) / 2;
   return id ? (
     <Dialog
       open={true}
@@ -39,24 +53,38 @@ export const PokemonDetails = () => {
                 className={classes.image}
               />
               <div className={classes.details}>
-                <h3 className={classes.classification}>
-                  {pokemonDetail?.classification}
-                </h3>
+                <h3 className={classes.classification}>{classification}</h3>
+                <div className={classes.dimensions}>
+                  <div className={classes.label}>Height:</div>
+                  <div className={classes.value}>
+                    {heightValue.toFixed(2) + ' m'}
+                  </div>
+                  <div className={classes.label}>Weight:</div>
+                  <div className={classes.value}>
+                    {weightValue.toFixed(2) + ' kg'}
+                  </div>
+                </div>
+                <div className={classes.label}>
+                  Types:{' '}
+                  <span className={classes.value}>
+                    {pokemonDetail?.types?.join('/')}
+                  </span>
+                </div>
                 <div className={classes.label}>Strength</div>
                 <div>
-                  {pokemonDetail?.resistant?.map((strength) => (
-                    <span className={classes.strength} key={strength}>
-                      {strength}
-                    </span>
-                  ))}
+                  {renderBadge(resistant, [classes.strength, classes.badge])}
                 </div>
                 <div className={classes.label}>Weakness</div>
                 <div>
-                  {pokemonDetail?.weaknesses?.map((weakness) => (
-                    <span className={classes.weakness} key={weakness}>
-                      {weakness}
-                    </span>
-                  ))}
+                  {renderBadge(weaknesses, [classes.weakness, classes.badge])}
+                </div>
+                <div className={classes.dimensions}>
+                  <div className={classes.label}>Max CP:</div>
+                  <div className={classes.value}>{maxCP}</div>
+                  <div className={classes.label}>Max HP:</div>
+                  <div className={classes.value}>{maxHP}</div>
+                  <div className={classes.label}>Flee Rate:</div>
+                  <div className={classes.value}>{fleeRate}</div>
                 </div>
               </div>
             </div>
@@ -65,6 +93,18 @@ export const PokemonDetails = () => {
       </>
     </Dialog>
   ) : null;
+};
+
+const renderBadge = (items: string[], classes: any) => {
+  return (
+    <div>
+      {items?.map((item) => (
+        <span className={classes.join(' ')} key={item}>
+          {item}
+        </span>
+      ))}
+    </div>
+  );
 };
 
 const useStyles = createUseStyles(
@@ -89,7 +129,7 @@ const useStyles = createUseStyles(
       alignItems: 'center',
       justifyContent: 'center',
     },
-    strength: {
+    badge: {
       fontSize: '16px',
       fontWeight: 'bold',
       color: '#ffffff',
@@ -98,14 +138,11 @@ const useStyles = createUseStyles(
       marginRight: '5px',
       borderRadius: '5px',
     },
+    strength: {
+      backgroundColor: 'green',
+    },
     weakness: {
-      fontSize: '16px',
-      fontWeight: 'bold',
-      color: '#ffffff',
       backgroundColor: 'red',
-      padding: '5px',
-      marginRight: '5px',
-      borderRadius: '5px',
     },
     label: {
       fontSize: '14px',
@@ -125,9 +162,28 @@ const useStyles = createUseStyles(
       fontSize: '24px',
       fontWeight: 'bold',
       color: '#333333',
+      margin: '0px',
+      fontStyle: 'italic',
+    },
+    dimensions: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    value: {
+      fontSize: '16px',
+      fontWeight: 'bold',
+      color: '#333333',
       marginBottom: '10px',
       marginTop: '10px',
+      paddingRight: '30px',
       fontStyle: 'italic',
+    },
+    types: {
+      fontSize: '16px',
+      fontWeight: 'bold',
+      color: '#333333',
     },
   },
   { name: 'PokemonDetails' }
