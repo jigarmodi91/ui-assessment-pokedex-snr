@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import { useGetPokemons } from '../../hooks/useGetPokemons';
 import { PokemonCard } from './PokemonCard';
+import { PokemonDetails } from '../PokemonDetails';
 
 export const PokemonList = () => {
   const classes = useStyles();
@@ -36,6 +37,7 @@ export const PokemonList = () => {
           <PokemonCard key={pkmn.id} pokemon={pkmn} />
         ))}
       </div>
+      <PokemonDetails />
     </div>
   );
 };

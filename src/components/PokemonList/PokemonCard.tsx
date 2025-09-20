@@ -1,5 +1,6 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
+import { useNavigate } from 'react-router-dom';
 import { Pokemon } from 'src/hooks/useGetPokemons';
 
 const useStyles = createUseStyles(
@@ -39,9 +40,12 @@ const useStyles = createUseStyles(
 
 export const PokemonCard = ({ pokemon }: { pokemon: Pokemon }) => {
   const classes = useStyles();
-
+  const navigate = useNavigate();
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      onClick={() => navigate(`/pokemon/${pokemon.id}/${pokemon.name}`)}
+    >
       <div className={classes.name}>{pokemon.name}</div>
       <img src={pokemon.image} alt={pokemon.name} className={classes.image} />
       <div className={classes.rank}>#{pokemon.number}</div>
