@@ -56,6 +56,7 @@ export const useGetPokemonDetail = (id: string, name: string) => {
       id: id,
       name: name,
     },
+    skip: !id && !name,
   });
 
   const pokemonDetail: PokemonDetail = useMemo(
