@@ -5,6 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 
 export const PokemonDetails = () => {
   const classes = useStyles();
@@ -54,14 +56,14 @@ export const PokemonDetails = () => {
               />
               <div className={classes.details}>
                 <h3 className={classes.classification}>{classification}</h3>
-                <div className={classes.dimensions}>
+                <div className={classes.row}>
                   <div className={classes.label}>Height:</div>
                   <div className={classes.value}>
-                    {heightValue.toFixed(2) + ' m'}
+                    {heightValue.toFixed(2) + 'm'}
                   </div>
                   <div className={classes.label}>Weight:</div>
                   <div className={classes.value}>
-                    {weightValue.toFixed(2) + ' kg'}
+                    {weightValue.toFixed(2) + 'kg'}
                   </div>
                 </div>
                 <div className={classes.label}>
@@ -70,15 +72,7 @@ export const PokemonDetails = () => {
                     {pokemonDetail?.types?.join('/')}
                   </span>
                 </div>
-                <div className={classes.label}>Strength</div>
-                <div>
-                  {renderBadge(resistant, [classes.strength, classes.badge])}
-                </div>
-                <div className={classes.label}>Weakness</div>
-                <div>
-                  {renderBadge(weaknesses, [classes.weakness, classes.badge])}
-                </div>
-                <div className={classes.dimensions}>
+                <div className={classes.row}>
                   <div className={classes.label}>Max CP:</div>
                   <div className={classes.value}>{maxCP}</div>
                   <div className={classes.label}>Max HP:</div>
@@ -86,8 +80,17 @@ export const PokemonDetails = () => {
                   <div className={classes.label}>Flee Rate:</div>
                   <div className={classes.value}>{fleeRate}</div>
                 </div>
+                <div className={classes.label}>Strength</div>
+                {renderBadge(resistant, [classes.strength, classes.badge])}
+                <div className={classes.label}>Weakness</div>
+                {renderBadge(weaknesses, [classes.weakness, classes.badge])}
               </div>
             </div>
+            <DialogActions>
+              <Button variant="contained" onClick={() => navigate('/pokemon')}>
+                Close
+              </Button>
+            </DialogActions>
           </DialogContent>
         )}
       </>
@@ -165,7 +168,7 @@ const useStyles = createUseStyles(
       margin: '0px',
       fontStyle: 'italic',
     },
-    dimensions: {
+    row: {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
