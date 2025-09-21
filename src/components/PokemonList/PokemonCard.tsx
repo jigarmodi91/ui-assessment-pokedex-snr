@@ -38,6 +38,12 @@ const useStyles = createUseStyles(
       fontWeight: 'bold',
       fontStyle: 'italic',
     },
+    types: {
+      marginTop: '5px',
+      marginBottom: '5px',
+      fontSize: '16px',
+      fontWeight: 'bold',
+    },
   },
   { name: 'PokemonCard' }
 );
@@ -45,14 +51,16 @@ const useStyles = createUseStyles(
 export const PokemonCard = ({ pokemon }: { pokemon: Pokemon }) => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const { id, name, image, number, types } = pokemon;
   return (
     <div
       className={classes.root}
-      onClick={() => navigate(`/pokemon/${pokemon.id}/${pokemon.name}`)}
+      onClick={() => navigate(`/pokemon/${id}/${name}`)}
     >
-      <div className={classes.name}>{pokemon.name}</div>
-      <img src={pokemon.image} alt={pokemon.name} className={classes.image} />
-      <div className={classes.rank}>#{pokemon.number}</div>
+      <div className={classes.name}>{name}</div>
+      <img src={image} alt={name} className={classes.image} />
+      <div className={classes.rank}>#{number}</div>
+      <div className={classes.types}>{types.join(', ')}</div>
     </div>
   );
 };

@@ -26,6 +26,9 @@ export const PokemonDetails = () => {
     maxCP,
     maxHP,
     fleeRate,
+    image,
+    number,
+    types,
   } = pokemonDetail;
   const heightValue =
     (parseFloat(height?.maximum) + parseFloat(height?.minimum)) / 2;
@@ -42,18 +45,16 @@ export const PokemonDetails = () => {
       fullWidth
     >
       <>
-        {loading && <DialogContent>Loading...</DialogContent>}
+        {loading && (
+          <DialogContent className={classes.loading}>Loading...</DialogContent>
+        )}
         {!loading && (
           <DialogContent className={classes.root}>
             <DialogTitle className={classes.title}>
-              {pokemonDetail.name} #{pokemonDetail.number}
+              {name} #{number}
             </DialogTitle>
             <div className={classes.detailsContainer}>
-              <img
-                src={pokemonDetail.image}
-                alt={pokemonDetail.name}
-                className={classes.image}
-              />
+              <img src={image} alt={name} className={classes.image} />
               <div className={classes.details}>
                 <h3 className={classes.classification}>{classification}</h3>
                 <div className={classes.row}>
@@ -68,9 +69,7 @@ export const PokemonDetails = () => {
                 </div>
                 <div className={classes.label}>
                   Types:{' '}
-                  <span className={classes.value}>
-                    {pokemonDetail?.types?.join('/')}
-                  </span>
+                  <span className={classes.value}>{types?.join('/')}</span>
                 </div>
                 <div className={classes.row}>
                   <div className={classes.label}>Max CP:</div>
@@ -98,7 +97,7 @@ export const PokemonDetails = () => {
   ) : null;
 };
 
-const renderBadge = (items: string[], classes: any) => {
+const renderBadge = (items: string[], classes: string[]) => {
   return (
     <div>
       {items?.map((item) => (
@@ -187,6 +186,15 @@ const useStyles = createUseStyles(
       fontSize: '16px',
       fontWeight: 'bold',
       color: '#333333',
+    },
+    loading: {
+      fontSize: '16px',
+      fontWeight: 'bold',
+      color: '#333333',
+      height: '450px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
   },
   { name: 'PokemonDetails' }

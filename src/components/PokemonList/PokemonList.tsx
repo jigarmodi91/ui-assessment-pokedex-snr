@@ -3,12 +3,13 @@ import { createUseStyles } from 'react-jss';
 import { useGetPokemons } from '../../hooks/useGetPokemons';
 import { PokemonCard } from './PokemonCard';
 import { PokemonDetails } from '../PokemonDetails';
+import { Pokemon } from 'src/hooks/useGetPokemons';
 
 export const PokemonList = () => {
   const classes = useStyles();
   const { pokemons, loading } = useGetPokemons();
   const [search, setSearch] = useState('');
-  const filteredPokemons = useMemo(() => {
+  const filteredPokemons: Pokemon[] = useMemo(() => {
     return search
       ? pokemons.filter((pkmn) =>
           pkmn.name.toLowerCase().includes(search.toLowerCase())
@@ -26,7 +27,7 @@ export const PokemonList = () => {
       <div>
         <input
           type="text"
-          placeholder="Search"
+          placeholder="Search by Pokemon Name"
           className={classes.search}
           value={search}
           onChange={handleSearch}
