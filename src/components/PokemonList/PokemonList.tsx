@@ -7,7 +7,8 @@ import { Pokemon } from 'src/hooks/useGetPokemons';
 
 export const PokemonList = () => {
   const classes = useStyles();
-  const { pokemons, loading } = useGetPokemons();
+  const { pokemons, loading }: { pokemons: Pokemon[]; loading: boolean } =
+    useGetPokemons();
   const [search, setSearch] = useState('');
   const filteredPokemons: Pokemon[] = useMemo(() => {
     return search

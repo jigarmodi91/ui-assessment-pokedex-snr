@@ -7,11 +7,15 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import { PokemonDetail } from 'src/hooks/useGetPokemonDetail';
 
 export const PokemonDetails = () => {
   const classes = useStyles();
   const { id, name } = useParams();
-  const { pokemonDetail, loading } = useGetPokemonDetail(
+  const {
+    pokemonDetail,
+    loading,
+  }: { pokemonDetail: PokemonDetail; loading: boolean } = useGetPokemonDetail(
     id as string,
     name as string
   );
