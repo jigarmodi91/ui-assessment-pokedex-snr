@@ -25,20 +25,24 @@ export const PokemonList = () => {
   return (
     <div className={classes.root}>
       {loading && <div>Loading...</div>}
-      <div>
-        <input
-          type="text"
-          placeholder="Search by Pokemon Name"
-          className={classes.search}
-          value={search}
-          onChange={handleSearch}
-        />
-      </div>
-      <div className={classes.pokemonList}>
-        {filteredPokemons.map((pkmn) => (
-          <PokemonCard key={pkmn.id} pokemon={pkmn} />
-        ))}
-      </div>
+      {!loading && (
+        <>
+          <div>
+            <input
+              type="text"
+              placeholder="Search by Pokemon Name"
+              className={classes.search}
+              value={search}
+              onChange={handleSearch}
+            />
+          </div>
+          <div className={classes.pokemonList}>
+            {filteredPokemons.map((pkmn) => (
+              <PokemonCard key={pkmn.id} pokemon={pkmn} />
+            ))}
+          </div>
+        </>
+      )}
       <PokemonDetails />
     </div>
   );
